@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Tells the server bundler to build for Netlify instead of the default target.
+  NITRO_PRESET = "netlify"
+  # Canonical public URL (https, no trailing slash) used in sitemap.xml and robots.txt.
+  # Set in the Netlify UI as a real environment variable as well if you prefer.
+  # SITE_URL = "https://your-domain.example"
+  # PLAN_DAILY_LIMIT = "300"   # global daily cap on AI plan requests
+  # Kill switch for the AI plan helper: set to "false" to disable it instantly.
+  # PLAN_HELPER_ENABLED = "true"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    # Content-Security-Policy is set per request by src/server.ts (nonce-based).
